@@ -5,16 +5,14 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using HouseRentingSystem.Data;
     using HouseRentingSystem.Data.Common;
     using HouseRentingSystem.Data.Common.Repositories;
     using HouseRentingSystem.Data.Models;
     using HouseRentingSystem.Data.Repositories;
     using HouseRentingSystem.Data.Seeding;
-    using HouseRentingSystem.Services.Data;
     using HouseRentingSystem.Services.Messaging;
-
-    using CommandLine;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -52,9 +50,6 @@
         {
             var sw = Stopwatch.StartNew();
 
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
-
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
         }
@@ -81,7 +76,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
     }
 }

@@ -24,7 +24,11 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Agent> Agents { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<House> Houses { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

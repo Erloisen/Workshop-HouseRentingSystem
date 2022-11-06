@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-namespace HouseRentingSystem.Data.Migrations
+﻿namespace HouseRentingSystem.Data.Migrations
 {
     using System;
 

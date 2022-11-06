@@ -64,7 +64,8 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IHouseService, HouseService>();
+            services.AddTransient<IAgentService, AgentService>();
         }
 
         private static void Configure(WebApplication app)
@@ -82,7 +83,6 @@
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
             }
             else
             {

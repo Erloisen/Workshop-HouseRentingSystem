@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace HouseRentingSystem.Data.Models
+﻿namespace HouseRentingSystem.Data.Models
 {
     using System;
 
