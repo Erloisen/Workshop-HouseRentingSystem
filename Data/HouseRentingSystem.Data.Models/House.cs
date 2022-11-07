@@ -3,31 +3,32 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using HouseRentingSystem.Common;
     using HouseRentingSystem.Data.Common.Models;
     using Microsoft.EntityFrameworkCore;
+
+    using static HouseRentingSystem.Common.GlobalConstants.HouseModelConstants;
 
     public class House : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(GlobalConstants.HouseModelConstants.TitleMaxLength)]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.HouseModelConstants.AddressMaxLength)]
+        [MaxLength(AddressMaxLength)]
         public string Address { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.HouseModelConstants.DescriptionMaxLength)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; }
 
         [Required]
-        [Column(TypeName = GlobalConstants.HouseModelConstants.TypePricePerMonth)]
-        [Range(GlobalConstants.HouseModelConstants.PriceMinValue, GlobalConstants.HouseModelConstants.PriceMaxValue)]
+        [Column(TypeName = TypePricePerMonth)]
+        [Range(PriceMinValue, PriceMaxValue)]
         [Precision(18, 2)]
         public decimal PricePerMonth { get; set; }
 

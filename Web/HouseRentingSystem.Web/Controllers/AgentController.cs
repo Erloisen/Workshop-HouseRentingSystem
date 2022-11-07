@@ -28,6 +28,7 @@
             }
 
             var model = new BecomeAgentModel();
+            ////this.TempData[MessageConstant.SuccessMessage] = "You are an Agent!";
 
             return this.View(model);
         }
@@ -64,6 +65,7 @@
             }
 
             await this.agentService.Create(userId, model.PhoneNumber);
+            this.TempData[MessageConstant.SuccessMessage] = "You become an Agent!";
 
             return this.RedirectToAction("All", "House");
         }

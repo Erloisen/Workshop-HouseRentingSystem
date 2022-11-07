@@ -37,6 +37,13 @@
                 .AnyAsync(a => a.UserId == userId);
         }
 
+        public async Task<int> GetAgentId(string userId)
+        {
+            var agent = await this.agentRepo.All()
+                .FirstOrDefaultAsync(a => a.UserId == userId);
+            return agent.Id;
+        }
+
         public async Task<bool> UserHasRent(string userId)
         {
             return await this.houseRepo.All()

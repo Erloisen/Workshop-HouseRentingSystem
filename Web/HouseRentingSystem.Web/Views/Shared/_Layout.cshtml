@@ -13,7 +13,6 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <partial name="_UserMessages" />
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.NameAppInHeader</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -35,6 +34,7 @@
                             </li>
                         }
                     </ul>
+                    <partial name="_UserMessages" />
                     <partial name="_LoginPartial" />
                 </div>
             </div>

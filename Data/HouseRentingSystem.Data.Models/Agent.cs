@@ -4,8 +4,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using HouseRentingSystem.Common;
     using HouseRentingSystem.Data.Common.Models;
+
+    using static HouseRentingSystem.Common.GlobalConstants.AgentConstants;
 
     public class Agent : BaseDeletableModel<int>
     {
@@ -15,7 +16,7 @@
         }
 
         [Required]
-        [MaxLength(GlobalConstants.Agent.PhoneNumberMaxLength)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; }
 
         [Required]

@@ -12,25 +12,39 @@
 
         public static class HouseModelConstants
         {
+            public const int TitleMinLength = 10;
+
             public const int TitleMaxLength = 50;
+
+            public const int AddressMinLength = 30;
 
             public const int AddressMaxLength = 150;
 
+            public const int DescriptionMinLength = 50;
+
             public const int DescriptionMaxLength = 500;
+
+            public const int ImageUrlMaxLength = 200;
+
+            public const string DisplayNameImageUrl = "Image Url";
 
             public const string TypePricePerMonth = "money";
 
-            public const int PriceMinValue = 0;
+            public const double PriceMinValue = 0.00;
 
-            public const int PriceMaxValue = 2000;
+            public const double PriceMaxValue = 2000;
+
+            public const string DisplayNamePricePerMonth = "Price Per Month";
         }
 
         public static class CategoryConstants
         {
             public const int NameMaxLength = 50;
+
+            public const string DisplayNameCategory = "Category";
         }
 
-        public static class Agent
+        public static class AgentConstants
         {
             public const int PhoneNumberMinLength = 7;
 

@@ -2,13 +2,13 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using HouseRentingSystem.Common;
+    using static HouseRentingSystem.Common.GlobalConstants.AgentConstants;
 
     public class BecomeAgentModel
     {
         [Required]
-        [StringLength(GlobalConstants.Agent.PhoneNumberMaxLength, MinimumLength = GlobalConstants.Agent.PhoneNumberMinLength)]
-        [Display(Name = GlobalConstants.Agent.DisplayNamePhoneNumber)]
+        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
+        [Display(Name = DisplayNamePhoneNumber)]
         public string PhoneNumber { get; set; }
     }
 }

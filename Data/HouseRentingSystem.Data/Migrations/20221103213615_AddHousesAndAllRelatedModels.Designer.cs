@@ -24,7 +24,7 @@ namespace HouseRentingSystem.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HouseRentingSystem.Data.Models.Agent", b =>
+            modelBuilder.Entity("HouseRentingSystem.Data.Models.AgentConstants", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -419,7 +419,7 @@ namespace HouseRentingSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("HouseRentingSystem.Data.Models.Agent", b =>
+            modelBuilder.Entity("HouseRentingSystem.Data.Models.AgentConstants", b =>
                 {
                     b.HasOne("HouseRentingSystem.Data.Models.ApplicationUser", "User")
                         .WithMany()
@@ -432,7 +432,7 @@ namespace HouseRentingSystem.Data.Migrations
 
             modelBuilder.Entity("HouseRentingSystem.Data.Models.House", b =>
                 {
-                    b.HasOne("HouseRentingSystem.Data.Models.Agent", "Agent")
+                    b.HasOne("HouseRentingSystem.Data.Models.AgentConstants", "AgentConstants")
                         .WithMany("Houses")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -448,7 +448,7 @@ namespace HouseRentingSystem.Data.Migrations
                         .WithMany()
                         .HasForeignKey("RenterId");
 
-                    b.Navigation("Agent");
+                    b.Navigation("AgentConstants");
 
                     b.Navigation("Category");
 
@@ -506,7 +506,7 @@ namespace HouseRentingSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HouseRentingSystem.Data.Models.Agent", b =>
+            modelBuilder.Entity("HouseRentingSystem.Data.Models.AgentConstants", b =>
                 {
                     b.Navigation("Houses");
                 });

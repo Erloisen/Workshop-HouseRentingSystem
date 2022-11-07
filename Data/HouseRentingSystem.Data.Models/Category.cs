@@ -3,8 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using HouseRentingSystem.Common;
     using HouseRentingSystem.Data.Common.Models;
+
+    using static HouseRentingSystem.Common.GlobalConstants.CategoryConstants;
 
     public class Category : BaseDeletableModel<int>
     {
@@ -14,7 +15,7 @@
         }
 
         [Required]
-        [MaxLength(GlobalConstants.CategoryConstants.NameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         public virtual IEnumerable<House> Houses { get; set; }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using HouseRentingSystem.Data.Common.Models;
     using HouseRentingSystem.Data.Common.Repositories;
@@ -38,6 +39,11 @@
             entity.IsDeleted = true;
             entity.DeletedOn = DateTime.UtcNow;
             this.Update(entity);
+        }
+
+        public Task<bool> Any()
+        {
+            throw new NotImplementedException();
         }
     }
 }
