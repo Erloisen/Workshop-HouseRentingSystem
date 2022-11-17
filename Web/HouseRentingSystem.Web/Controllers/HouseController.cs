@@ -23,11 +23,21 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllHousesQueryModel query)
         {
-            var model = new HousesQueryModel();
+            var queryResult = await this.houses.All(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllHousesQueryModel.HousesPerPage);
 
-            return this.View(model);
+            query.TotalHousesCount = queryResult.TotalHousesCount;
+            query.Houses = queryResult.Houses;
+
+            query.Categories = await this.houses.AllCategoriesNames();
+
+            return this.View(query);
         }
 
         public async Task<IActionResult> Mine()

@@ -52,5 +52,21 @@
 
             public const string DisplayNamePhoneNumber = "Phone number";
         }
+
+        public static class HouseServiceConstants
+        {
+            public const string DisplayNameImageUrl = "Image URL";
+
+            public const string DisplayNamePricePerMonth = "Price Per Month";
+
+            public const string DisplayNameIsRented = "Is Rented";
+        }
+
+        public static class HousesQueryModelConstants
+        {
+            public const int ConstantHousesPerPage = 3;
+
+            public const string DisplayNameSearchTerm = "Search by text";
+        }
     }
 }
