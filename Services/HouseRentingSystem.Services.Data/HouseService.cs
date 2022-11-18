@@ -92,7 +92,6 @@
                 .ToListAsync();
         }
 
-<<<<<<< HEAD
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByAgentId(int agentId)
         {
             var houses = await this.houseRepo.All()
@@ -111,8 +110,6 @@
             return this.ProjectToModel(houses);
         }
 
-=======
->>>>>>> 2679366de0e323425bd2f242478fa3245cc443f7
         public async Task<bool> CategoryExists(int categoryId)
         {
             return await this.categoryRepo.All()

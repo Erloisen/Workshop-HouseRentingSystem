@@ -20,12 +20,9 @@
         Task<HousesQueryModel> All(string category = null, string searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNames();
-<<<<<<< HEAD
 
         Task<IEnumerable<HouseServiceModel>> AllHousesByAgentId(int agentId);
 
         Task<IEnumerable<HouseServiceModel>> AllHousesByUserId(string userId);
-=======
->>>>>>> 2679366de0e323425bd2f242478fa3245cc443f7
     }
 }
