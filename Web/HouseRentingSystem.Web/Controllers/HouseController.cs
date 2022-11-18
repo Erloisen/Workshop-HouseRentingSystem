@@ -1,5 +1,8 @@
 ﻿namespace HouseRentingSystem.Web.Controllers
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using HouseRentingSystem.Common;
@@ -23,18 +26,41 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllHousesQueryModel query)
         {
-            var model = new HousesQueryModel();
+            var queryResult = await this.houses.All(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllHousesQueryModel.HousesPerPage);
 
-            return this.View(model);
+            query.TotalHousesCount = queryResult.TotalHousesCount;
+            query.Houses = queryResult.Houses;
+
+            query.Categories = await this.houses.AllCategoriesNames();
+
+            return this.View(query);
         }
 
         public async Task<IActionResult> Mine()
         {
-            var model = new HousesQueryModel();
+            IEnumerable<HouseServiceModel> myHouses;
 
-            return this.View(model);
+            var userId = this.User.Id();
+
+            if (await this.agents.ExistsById(userId))
+            {
+                var currenAgentId = await this.agents.GetAgentId(userId);
+
+                myHouses = await this.houses.AllHousesByAgentId(currenAgentId);
+            }
+            else
+            {
+                myHouses = await this.houses.AllHousesByUserId(userId);
+            }
+
+            return this.View(myHouses);
         }
 
         [AllowAnonymous]
