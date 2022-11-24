@@ -11,8 +11,10 @@
     {
         public HouseInputModel()
         {
-            this.Categories = new List<HouseCategoryModel>();
+            this.HouseCategories = new List<HouseCategoryModel>();
         }
+
+        public int Id { get; set; }
 
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
@@ -38,6 +40,6 @@
         [Display(Name = DisplayNameCategory)]
         public int CategoryId { get; set; }
 
-        public IEnumerable<HouseCategoryModel> Categories { get; set; }
+        public IEnumerable<HouseCategoryModel> HouseCategories { get; set; }
     }
 }
