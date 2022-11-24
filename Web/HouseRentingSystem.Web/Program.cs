@@ -1,7 +1,7 @@
 ﻿namespace HouseRentingSystem.Web
 {
     using System.Reflection;
-
+    using HouseRentingSystem.Common.Exeptions;
     using HouseRentingSystem.Data;
     using HouseRentingSystem.Data.Common;
     using HouseRentingSystem.Data.Common.Repositories;
@@ -66,6 +66,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IHouseService, HouseService>();
             services.AddTransient<IAgentService, AgentService>();
+            services.AddTransient<IGuard, Guard>();
         }
 
         private static void Configure(WebApplication app)

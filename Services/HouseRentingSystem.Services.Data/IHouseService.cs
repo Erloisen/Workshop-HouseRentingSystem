@@ -34,5 +34,15 @@
         Task<bool> HasAgentWithId(int houseId, string currentUserId);
 
         Task<int> GetHouseCategoryId(int houseId);
+
+        Task Delete(int houseId);
+
+        Task<bool> IsRented(int houseId);
+
+        Task<bool> IsRentedByUserWithId(int houseId, string userId);
+
+        Task Rent(int houseId, string userId);
+
+        Task Leave(int houseId);
     }
 }

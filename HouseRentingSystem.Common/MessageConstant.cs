@@ -11,5 +11,9 @@
         public const string HouseErrorMessage = "House does not exists!";
 
         public const string CategoryErrorMessage = "Category does not exists!";
+
+        public const string RentedHouseArgumentExeptionMessage = "Sorry, this house is already rented";
+
+        public const string GuardHouseExceptionMessage = "House can not be null";
     }
 }

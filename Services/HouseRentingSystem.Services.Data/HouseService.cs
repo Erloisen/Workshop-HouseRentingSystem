@@ -5,29 +5,36 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using HouseRentingSystem.Common.Exeptions;
     using HouseRentingSystem.Data.Common.Repositories;
     using HouseRentingSystem.Data.Models;
     using HouseRentingSystem.Web.ViewModels.Agent;
     using HouseRentingSystem.Web.ViewModels.House;
     using Microsoft.EntityFrameworkCore;
 
+    using static HouseRentingSystem.Common.MessageConstant;
+
     public class HouseService : IHouseService
     {
         private readonly IDeletableEntityRepository<House> houseRepo;
         private readonly IDeletableEntityRepository<Category> categoryRepo;
 
+        private readonly IGuard guard;
+
         public HouseService(
             IDeletableEntityRepository<House> houseRepo,
-            IDeletableEntityRepository<Category> categoryRepo)
+            IDeletableEntityRepository<Category> categoryRepo,
+            IGuard guard)
         {
             this.houseRepo = houseRepo;
             this.categoryRepo = categoryRepo;
+            this.guard = guard;
         }
 
         public async Task<HousesQueryModel> All(string category = null, string searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1)
         {
             var result = new HousesQueryModel();
-            var housesQuery = this.houseRepo.All();
+            var housesQuery = this.houseRepo.AllAsNoTracking();
 
             if (string.IsNullOrEmpty(category) == false)
             {
@@ -95,7 +102,7 @@
 
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByAgentId(int agentId)
         {
-            var houses = await this.houseRepo.All()
+            var houses = await this.houseRepo.AllAsNoTracking()
                 .Where(h => h.AgentId == agentId)
                 .ToListAsync();
 
@@ -104,7 +111,7 @@
 
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByUserId(string userId)
         {
-            var houses = await this.houseRepo.All()
+            var houses = await this.houseRepo.AllAsNoTracking()
                 .Where(h => h.RenterId == userId)
                 .ToListAsync();
 
@@ -136,39 +143,40 @@
             return house.Id;
         }
 
-        public async Task Edit(int houseId, HouseInputModel model)
+        public async Task Delete(int houseId)
         {
             var house = await this.houseRepo.All()
                 .FirstOrDefaultAsync(h => h.Id == houseId);
+
+            this.houseRepo.Delete(house);
+            await this.houseRepo.SaveChangesAsync();
+        }
+
+        public async Task Edit(int houseId, HouseInputModel model)
+        {
+            var house = await this.GetHouseById(houseId);
 
             house.Title = model.Title;
             house.Address = model.Address;
             house.Description = model.Description;
             house.ImageUrl = model.ImageUrl;
-            house.PricePerMonth= model.PricePerMonth;
+            house.PricePerMonth = model.PricePerMonth;
             house.CategoryId = model.CategoryId;
 
             await this.houseRepo.SaveChangesAsync();
         }
 
-        public Task Edit(int houseId, HouseModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> Exists(int id)
         {
-            return await this.houseRepo.All()
+            return await this.houseRepo.AllAsNoTracking()
                 .AnyAsync(h => h.Id == id);
         }
 
         public async Task<int> GetHouseCategoryId(int houseId)
         {
-            var result = await this.houseRepo.AllAsNoTracking()
+            return (await this.houseRepo.AllAsNoTracking()
                 .Where(h => h.Id == houseId)
-                .FirstOrDefaultAsync();
-
-            return result.CategoryId;
+                .FirstOrDefaultAsync()).CategoryId;
         }
 
         public async Task<bool> HasAgentWithId(int houseId, string currentUserId)
@@ -189,7 +197,7 @@
 
         public async Task<HouseDetailsModel> HouseDetailsById(int id)
         {
-            return await this.houseRepo.All()
+            return await this.houseRepo.AllAsNoTracking()
                 .Where(h => h.Id == id)
                 .Select(h => new HouseDetailsModel()
                 {
@@ -210,9 +218,30 @@
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<bool> IsRented(int houseId)
+        {
+            return (await this.houseRepo.AllAsNoTracking()
+                .FirstOrDefaultAsync(h => h.Id == houseId)).RenterId != null;
+        }
+
+        public async Task<bool> IsRentedByUserWithId(int houseId, string userId)
+        {
+            bool result = false;
+            var house = await this.houseRepo.AllAsNoTracking()
+                .Where(h => h.Id == houseId)
+                .FirstOrDefaultAsync();
+
+            if (house != null && house.RenterId == userId)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<HouseIndexModel>> LastThreeHouses()
         {
-            return await this.houseRepo.All()
+            return await this.houseRepo.AllAsNoTracking()
                 .OrderByDescending(h => h.Id)
                 .Select(h => new HouseIndexModel
                 {
@@ -222,6 +251,37 @@
                 })
                 .Take(3)
                 .ToListAsync();
+        }
+
+        public async Task Leave(int houseId)
+        {
+            var house = await this.GetHouseById(houseId);
+            this.guard.AgainstNull(house, GuardHouseExceptionMessage);
+
+            house.RenterId = null;
+
+            await this.houseRepo.SaveChangesAsync();
+        }
+
+        public async Task Rent(int houseId, string userId)
+        {
+            var house = await this.GetHouseById(houseId);
+
+            if (house != null || house.RenterId != null)
+            {
+                throw new ArgumentException(RentedHouseArgumentExeptionMessage);
+            }
+
+            this.guard.AgainstNull(house, GuardHouseExceptionMessage);
+            house.RenterId = userId;
+
+            await this.houseRepo.SaveChangesAsync();
+        }
+
+        private Task<House> GetHouseById(int houseId)
+        {
+            return this.houseRepo.AllAsNoTracking()
+                .FirstOrDefaultAsync(h => h.Id == houseId);
         }
 
         private List<HouseServiceModel> ProjectToModel(List<House> houses)
