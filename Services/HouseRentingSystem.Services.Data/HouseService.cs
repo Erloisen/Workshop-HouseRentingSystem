@@ -145,8 +145,7 @@
 
         public async Task Delete(int houseId)
         {
-            var house = await this.houseRepo.All()
-                .FirstOrDefaultAsync(h => h.Id == houseId);
+            var house = await this.GetHouseById(houseId);
 
             this.houseRepo.Delete(house);
             await this.houseRepo.SaveChangesAsync();
@@ -267,7 +266,7 @@
         {
             var house = await this.GetHouseById(houseId);
 
-            if (house != null || house.RenterId != null)
+            if (house != null && house.RenterId != null)
             {
                 throw new ArgumentException(RentedHouseArgumentExeptionMessage);
             }
@@ -280,7 +279,7 @@
 
         private Task<House> GetHouseById(int houseId)
         {
-            return this.houseRepo.AllAsNoTracking()
+            return this.houseRepo.All()
                 .FirstOrDefaultAsync(h => h.Id == houseId);
         }
 
