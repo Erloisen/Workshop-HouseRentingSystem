@@ -8,6 +8,7 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
@@ -33,6 +34,7 @@
     <ProjectReference Include="..\..\HouseRentingSystem.Common\HouseRentingSystem.Common.csproj" />
     <ProjectReference Include="..\..\Data\HouseRentingSystem.Data.Models\HouseRentingSystem.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\HouseRentingSystem.Data\HouseRentingSystem.Data.csproj" />
+    <ProjectReference Include="..\..\HouseRentingSystem.WebApi\HouseRentingSystem.WebApi.csproj" />
     <ProjectReference Include="..\..\Services\HouseRentingSystem.Services.Data\HouseRentingSystem.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\HouseRentingSystem.Services.Mapping\HouseRentingSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\HouseRentingSystem.Services.Messaging\HouseRentingSystem.Services.Messaging.csproj" />

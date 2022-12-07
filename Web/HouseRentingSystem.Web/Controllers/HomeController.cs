@@ -18,6 +18,7 @@
         }
 
         [AllowAnonymous]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> Index()
         {
             var model = await this.houseService.LastThreeHouses();

@@ -1,6 +1,7 @@
 ﻿namespace HouseRentingSystem.Web
 {
     using System.Reflection;
+
     using HouseRentingSystem.Common.Exeptions;
     using HouseRentingSystem.Data;
     using HouseRentingSystem.Data.Common;
@@ -67,6 +68,8 @@
             services.AddTransient<IHouseService, HouseService>();
             services.AddTransient<IAgentService, AgentService>();
             services.AddTransient<IGuard, Guard>();
+
+            services.AddResponseCaching();
         }
 
         private static void Configure(WebApplication app)
@@ -103,6 +106,8 @@
             app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            app.UseResponseCaching();
         }
     }
 }

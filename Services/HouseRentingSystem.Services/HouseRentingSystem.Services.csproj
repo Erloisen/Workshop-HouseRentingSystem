@@ -18,4 +18,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\HouseRentingSystem.Data.Common\HouseRentingSystem.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\HouseRentingSystem.Data.Models\HouseRentingSystem.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>
