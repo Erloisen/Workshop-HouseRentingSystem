@@ -1,5 +1,6 @@
 ﻿namespace HouseRentingSystem.Web
 {
+    using System;
     using System.Reflection;
 
     using HouseRentingSystem.Common.Exeptions;
@@ -20,6 +21,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
     using Microsoft.Extensions.Hosting;
 
     public class Program
@@ -103,9 +105,23 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "houseDetails",
+                    pattern: "House/Details/{id}/{informatoin}",
+                    defaults: new { Controller = "House", Action = "Details" });
+
+                endpoints.MapRazorPages();
+            });
 
             app.UseResponseCaching();
         }

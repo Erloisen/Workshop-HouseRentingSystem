@@ -12,7 +12,8 @@
     using HouseRentingSystem.Web.ViewModels.House;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+    using Microsoft.VisualBasic;
     using static HouseRentingSystem.Common.MessageConstant;
 
     public class HouseController : BaseController
@@ -67,7 +68,7 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if (await this.houseService.Exists(id) == false)
             {
@@ -75,6 +76,13 @@
             }
 
             var model = await this.houseService.HouseDetailsById(id);
+
+            if (information != model.GetInformation())
+            {
+                this.TempData[MessageConstant.ErrorMessage] = "Don't tuch my slug!";
+
+                return this.RedirectToAction("Index", "Home");
+            }
 
             return this.View(model);
         }
@@ -119,7 +127,7 @@
 
             var newHouseId = await this.houseService.Create(model.Title, model.Address, model.Description, model.ImageUrl, model.PricePerMonth, model.CategoryId, agentId);
 
-            return this.RedirectToAction(nameof(this.Details), new { id = newHouseId });
+            return this.RedirectToAction(nameof(this.Details), new { id = newHouseId, information = model.GetInformation() });
         }
 
         [HttpGet]
@@ -188,7 +196,7 @@
 
             await this.houseService.Edit(model.Id, model);
 
-            return this.RedirectToAction(nameof(this.Details), new { model.Id });
+            return this.RedirectToAction(nameof(this.Details), new { id = model.Id, information = model.GetInformation() });
         }
 
         [HttpGet]

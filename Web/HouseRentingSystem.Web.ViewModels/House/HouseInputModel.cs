@@ -3,11 +3,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using HouseRentingSystem.Data.Models;
+
     using static HouseRentingSystem.Common.GlobalConstants.CategoryConstants;
     using static HouseRentingSystem.Common.GlobalConstants.HouseModelConstants;
     using static HouseRentingSystem.Common.MessageConstant;
 
-    public class HouseInputModel
+    public class HouseInputModel : IHouseModel
     {
         public HouseInputModel()
         {

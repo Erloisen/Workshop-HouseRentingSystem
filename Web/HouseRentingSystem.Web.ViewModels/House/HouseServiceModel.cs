@@ -2,11 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using HouseRentingSystem.Data.Models;
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
     using static HouseRentingSystem.Common.GlobalConstants.HouseServiceConstants;
 
-    public class HouseServiceModel
+    public class HouseServiceModel : IHouseModel
     {
         public int Id { get; init; }
 
