@@ -26,7 +26,7 @@
             return new StatisticsServiceModel()
             {
                 TotalHouses = totalHouses,
-                TotalRent = rentedHouses,
+                TotalRents = rentedHouses,
             };
         }
     }

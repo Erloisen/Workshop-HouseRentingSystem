@@ -4,6 +4,6 @@
     {
         public int TotalHouses { get; init; }
 
-        public int TotalRent { get; init; }
+        public int TotalRents { get; init; }
     }
 }

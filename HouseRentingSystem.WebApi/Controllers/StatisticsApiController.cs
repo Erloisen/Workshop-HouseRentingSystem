@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/Statistics")]
+    [Route("api/statistics")]
     [ApiController]
     public class StatisticsApiController : ControllerBase
     {
