@@ -21,33 +21,37 @@
             var users = new List<ApplicationUser>();
             var hasher = new PasswordHasher<ApplicationUser>();
 
-            var user = new ApplicationUser()
+            var agentUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "agent@mail.com",
                 NormalizedUserName = "agent@mail.com".ToUpper(),
                 Email = "agent@mail.com",
                 NormalizedEmail = "agent@mail.com".ToUpper(),
+                FirstName = "Linda",
+                LastName = "Michaels",
             };
 
-            user.PasswordHash =
-                 hasher.HashPassword(user, "agent123");
+            agentUser.PasswordHash =
+                 hasher.HashPassword(agentUser, "agent123");
 
-            users.Add(user);
+            users.Add(agentUser);
 
-            user = new ApplicationUser()
+            var guestUser = new ApplicationUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com".ToUpper(),
                 Email = "guest@mail.com",
                 NormalizedEmail = "guest@mail.com".ToUpper(),
+                FirstName = "Teodor",
+                LastName = "Lesly",
             };
 
-            user.PasswordHash =
-                hasher.HashPassword(user, "guest123");
+            guestUser.PasswordHash =
+                hasher.HashPassword(guestUser, "guest123");
 
-            users.Add(user);
+            users.Add(guestUser);
             await dbContext.AddRangeAsync(users);
             dbContext.SaveChanges();
         }

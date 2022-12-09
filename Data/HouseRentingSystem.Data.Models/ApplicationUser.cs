@@ -2,10 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using HouseRentingSystem.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
+
+    using static HouseRentingSystem.Common.GlobalConstants.UserConstants;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,6 +19,14 @@
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Required]
+        [StringLength(UserFirstNameMaxLength)]
+        public string FirstName { get; init; }
+
+        [Required]
+        [StringLength(UserLastNameMaxLength)]
+        public string LastName { get; init; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
