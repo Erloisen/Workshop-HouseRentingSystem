@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<HouseIndexModel>
-@inject IAgentService agent
 
 @using HouseRentingSystem.Common
 @{
@@ -17,11 +16,10 @@
 		</p>
 		<hr class="my-4">
 		<p class="lead">
-			@if (this.User?.Identity != null && this.User.Identity.IsAuthenticated 
-				&& await this.agent.ExistsById(this.User.Id()))
+			@if (this.User?.Identity != null && this.User.Identity.IsAuthenticated)
 			{
 				<a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg"
-					role="button">Add House</a>
+		   role="button">Add House</a>
 			}
 		</p>
 	</div>

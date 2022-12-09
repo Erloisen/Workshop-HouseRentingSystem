@@ -1,6 +1,6 @@
 ﻿namespace HouseRentingSystem.Web.ViewModels.House
 {
-    public class HouseModel
-    {
-    }
+	public class HouseModel
+	{
+	}
 }

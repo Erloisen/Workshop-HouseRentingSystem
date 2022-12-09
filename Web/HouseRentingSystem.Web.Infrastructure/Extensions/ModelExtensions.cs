@@ -6,6 +6,7 @@
     using System.Text.RegularExpressions;
 
     using HouseRentingSystem.Data.Models;
+    using HouseRentingSystem.Services.Data;
 
     public static class ModelExtensions
     {
@@ -24,7 +25,7 @@
             string result = string
                 .Join("-", address.Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .Take(3));
-            return Regex.Replace(result, @"[^a-zA-Z0-9\-]", string.Empty);
+            return Regex.Replace(address, @"[^a-zA-Z0-9\-]", string.Empty);
         }
     }
 }
