@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
-
-namespace HouseRentingSystem.Data.Migrations
+﻿namespace HouseRentingSystem.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemoveSettingsAndSeedData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
