@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Web
+namespace HouseRentingSystem.Web
 {
     using System;
     using System.Reflection;
