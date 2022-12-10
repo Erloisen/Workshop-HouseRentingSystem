@@ -69,7 +69,6 @@ namespace HouseRentingSystem.Web
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IHouseService, HouseService>();
             services.AddTransient<IAgentService, AgentService>();
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGuard, Guard>();
 
             services.AddResponseCaching();

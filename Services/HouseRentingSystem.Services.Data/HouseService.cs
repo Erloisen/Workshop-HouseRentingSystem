@@ -19,19 +19,15 @@
         private readonly IDeletableEntityRepository<House> houseRepo;
         private readonly IDeletableEntityRepository<Category> categoryRepo;
 
-        private readonly IUserService user;
-
         private readonly IGuard guard;
 
         public HouseService(
             IDeletableEntityRepository<House> houseRepo,
             IDeletableEntityRepository<Category> categoryRepo,
-            IUserService user,
             IGuard guard)
         {
             this.houseRepo = houseRepo;
             this.categoryRepo = categoryRepo;
-            this.user = user;
             this.guard = guard;
         }
 
@@ -202,7 +198,7 @@
         {
             return await this.houseRepo.AllAsNoTracking()
                 .Where(h => h.Id == id)
-                .Select(async h => new HouseDetailsModel()
+                .Select(h => new HouseDetailsModel()
                 {
                     Id = h.Id,
                     Title = h.Title,
@@ -214,7 +210,6 @@
                     Category = h.Category.Name,
                     Agent = new AgentServiceModel()
                     {
-                        FullName = this.user.UserFullName(h.Agent.UserId),
                         PhoneNumber = h.Agent.PhoneNumber,
                         Email = h.Agent.User.Email,
                     },

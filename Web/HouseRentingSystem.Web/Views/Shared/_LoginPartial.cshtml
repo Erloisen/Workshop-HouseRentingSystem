@@ -4,11 +4,6 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IAgentService agent
-@inject IUserService user
-
-@{
-    var fullName = await user.UserFullName(this.User.Id());
-}
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
@@ -20,7 +15,7 @@
             </li> 
         }
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @fullName!</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
