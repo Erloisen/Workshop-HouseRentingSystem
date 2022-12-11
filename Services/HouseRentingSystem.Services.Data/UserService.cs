@@ -19,7 +19,7 @@
 
         public async Task<string> UserFullName(string userId)
         {
-            var currentUser = await this.userRepo.AllAsNoTracking()
+            var currentUser = await this.userRepo.All()
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (string.IsNullOrEmpty(currentUser.FirstName) || string.IsNullOrEmpty(currentUser.LastName))

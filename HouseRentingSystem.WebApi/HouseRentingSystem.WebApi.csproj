@@ -17,7 +17,6 @@
     <ProjectReference Include="..\Data\HouseRentingSystem.Data\HouseRentingSystem.Data.csproj" />
     <ProjectReference Include="..\HouseRentingSystem.Common\HouseRentingSystem.Common.csproj" />
     <ProjectReference Include="..\Services\HouseRentingSystem.Services.Data\HouseRentingSystem.Services.Data.csproj" />
-    <ProjectReference Include="..\Services\HouseRentingSystem.Services.Mapping\HouseRentingSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\Services\HouseRentingSystem.Services\HouseRentingSystem.Services.csproj" />
     <ProjectReference Include="..\Web\HouseRentingSystem.Web.Infrastructure\HouseRentingSystem.Web.Infrastructure.csproj" />
   </ItemGroup>

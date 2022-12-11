@@ -8,8 +8,6 @@
 
         public const string NameAppInHeader = "House Renting Worldwide";
 
-        public const string AdministratorRoleName = "Administrator";
-
         public static class HouseModelConstants
         {
             public const int TitleMinLength = 10;
@@ -69,6 +67,12 @@
 
             public const int UserLastNameMaxLength = 15;
             public const int UserLastNameMinLength = 3;
+        }
+
+        public static class AdminConstants
+        {
+            public const string AdministratorRoleName = "Administrator";
+            public const string AdministratorEmail = "admin@mail.com";
         }
     }
 }

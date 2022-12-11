@@ -28,6 +28,7 @@
                               new RolesSeeder(),
                               new SeedUsers(),
                               new SeedAgent(),
+                              new SeedAdministrator(),
                               new SeedCategories(),
                               new SeedHouses(),
                           };

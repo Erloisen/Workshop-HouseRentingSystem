@@ -1,24 +1,12 @@
 ﻿namespace HouseRentingSystem.Web.Areas.Identity.Pages.Account
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Text.Encodings.Web;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using HouseRentingSystem.Data.Models;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.AspNetCore.WebUtilities;
-    using Microsoft.Extensions.Logging;
 
     using static HouseRentingSystem.Common.GlobalConstants.UserConstants;
 
@@ -93,7 +81,6 @@
             public string ConfirmPassword { get; set; }
         }
 
-
         public void OnGetAsync(string returnUrl = null)
         {
             this.ReturnUrl = returnUrl;
@@ -101,7 +88,7 @@
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= this.Url.Content("~/");
 
             if (this.ModelState.IsValid)
             {
@@ -118,7 +105,7 @@
                 if (result.Succeeded)
                 {
                     await this.signInManager.SignInAsync(user, isPersistent: false);
-                    return this.LocalRedirect("~/Login");
+                    return this.RedirectToPage("/Identity/Account/Login");
                 }
 
                 foreach (var error in result.Errors)
@@ -127,7 +114,6 @@
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return this.Page();
         }
     }

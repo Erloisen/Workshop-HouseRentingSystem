@@ -38,7 +38,7 @@
         public async Task<HousesQueryModel> All(string category = null, string searchTerm = null, HouseSorting sorting = HouseSorting.Newest, int currentPage = 1, int housesPerPage = 1)
         {
             var result = new HousesQueryModel();
-            var housesQuery = this.houseRepo.AllAsNoTracking();
+            var housesQuery = this.houseRepo.All();
 
             if (string.IsNullOrEmpty(category) == false)
             {
@@ -87,7 +87,7 @@
 
         public async Task<IEnumerable<HouseCategoryModel>> AllCategories()
         {
-            return await this.categoryRepo.All()
+            return await this.categoryRepo.AllAsNoTracking()
                     .Select(h => new HouseCategoryModel()
                     {
                         Id = h.Id,
@@ -98,7 +98,7 @@
 
         public async Task<IEnumerable<string>> AllCategoriesNames()
         {
-            return await this.categoryRepo.All()
+            return await this.categoryRepo.AllAsNoTracking()
                 .Select(c => c.Name)
                 .Distinct()
                 .ToListAsync();
@@ -171,7 +171,7 @@
 
         public async Task<bool> Exists(int id)
         {
-            return await this.houseRepo.AllAsNoTracking()
+            return await this.houseRepo.All()
                 .AnyAsync(h => h.Id == id);
         }
 
@@ -224,14 +224,14 @@
 
         public async Task<bool> IsRented(int houseId)
         {
-            return (await this.houseRepo.AllAsNoTracking()
+            return (await this.houseRepo.All()
                 .FirstOrDefaultAsync(h => h.Id == houseId)).RenterId != null;
         }
 
         public async Task<bool> IsRentedByUserWithId(int houseId, string userId)
         {
             bool result = false;
-            var house = await this.houseRepo.AllAsNoTracking()
+            var house = await this.houseRepo.All()
                 .Where(h => h.Id == houseId)
                 .FirstOrDefaultAsync();
 
@@ -245,7 +245,7 @@
 
         public async Task<IEnumerable<HouseIndexModel>> LastThreeHouses()
         {
-            return await this.houseRepo.AllAsNoTracking()
+            return await this.houseRepo.All()
                 .OrderByDescending(h => h.Id)
                 .Select(h => new HouseIndexModel
                 {
