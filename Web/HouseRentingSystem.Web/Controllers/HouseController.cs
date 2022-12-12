@@ -135,7 +135,8 @@
                 return this.RedirectToAction(nameof(this.All));
             }
 
-            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false)
+            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false
+                && this.User.IsAdmin() == false)
             {
                 return this.RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
@@ -173,7 +174,8 @@
                 return this.View(model);
             }
 
-            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false)
+            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false
+                && this.User.IsAdmin() == false)
             {
                 return this.RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
@@ -204,7 +206,8 @@
                 return this.RedirectToAction(nameof(this.All));
             }
 
-            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false)
+            if (await this.houseService.HasAgentWithId(id, this.User.Id()) == false
+                && this.User.IsAdmin() == false)
             {
                 return this.RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
@@ -230,7 +233,8 @@
                 return this.RedirectToAction(nameof(this.All));
             }
 
-            if (await this.houseService.HasAgentWithId(model.Id, this.User.Id()) == false)
+            if (await this.houseService.HasAgentWithId(model.Id, this.User.Id()) == false
+                && this.User.IsAdmin() == false)
             {
                 return this.RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
@@ -248,7 +252,8 @@
                 return this.RedirectToAction(nameof(this.All));
             }
 
-            if (await this.agentService.ExistsById(this.User.Id()))
+            if (await this.agentService.ExistsById(this.User.Id())
+                && this.User.IsAdmin() == false)
             {
                 return this.RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
